@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>测试用例又来了(┬＿┬)</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.css' />
+    <script type="text/javascript" src='javascripts/jquery.min.js' charset="utf-8"></script>
+    <script type="text/javascript" src='javascripts/easyui.min.js' charset="utf-8"></script>
+    <script type="text/javascript" src='javascripts/bootstrap.min.js' charset="utf-8"></script>
+    <script type="text/javascript" src='javascripts/index.js' charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+    <form class="form-inline" >
+    <div class="form-group">
+        <label for="name">姓名</label>
+        <input type="text" class="form-control" id="name" title="姓名" placeholder="请输入姓名"/>
+    </div>
+    <div class="form-group">
+        <label for="age">年龄</label>
+        <input type="number" class="form-control" id="age" placeholder="请输入年龄"/>
+    </div>
+    <div class="form-group">
+        <label for="address">地址</label>
+        <input type="text" class="form-control" id="address" placeholder="请输入地址"/>
+    </div>
+        <button type="button" id="set" class="btn btn-primary">提交数据</button>
+    </form>
+    </div>
+    <br>
+    <div class="container-fluid">
+    <table class="table table-striped">
+        <% for(var i=0; i<rows.length; i++) {%>
+            <th><%= rows[i].name %></th>
+            <th><%= rows[i].age %></th>
+            <th><%= rows[i].address %></th>
+            <th>姓名： <input type="text" id="rname_<%= rows[i].id %>"/></th>
+            <th>年龄： <input type="number" id="rage_<%= rows[i].id %>"/></th>
+            <th>地址: <input type="text" id="raddress_<%= rows[i].id %>"/></th>
+            <th><a onclick="update(<%= rows[i].id %>)" href="javaScript:void(0)" id="<%= rows[i].id %>" name="update">修改</a></th>
+            <th><a onclick="deletes(<%= rows[i].id %>)" href="javaScript:void(0)" id="<%= rows[i].id %>" name="delete">删除</a></th>
+            </tr>
+        <% } %>
+    </table>
+    </div>
+    <button type="button" class="btn btn-default" onclick="mlist()">Mangodb测试</button>
+
+    <button type="button" class="btn btn-primary">Mangodb测试</button>
+
+    <button type="button" class="btn btn-success">Mangodb测试</button>
+
+    <button type="button" class="btn btn-info">Mangodb测试</button>
+
+    <button type="button" class="btn btn-warning">Mangodb测试</button>
+
+    <button type="button" class="btn btn-danger">Mangodb测试</button>
+  </body>
+</html>
