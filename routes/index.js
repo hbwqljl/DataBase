@@ -33,13 +33,40 @@ router.get('/ms_update',function(req,res,next){
 });
 
 router.get('/mongo_list',function(req,res,next){
-    muntil.allTodos(function (err, todos) {
+    muntil.allUsers(req.param('page'),req.param('rows'),function (err, users) {
         if (err) {
             return next(err);
         }
-        console.log(todos);
-        res.render('index.html', {todos: todos});
+        console.log(users)
+        res.end(JSON.stringify(users));
     });
 });
 
+router.get('/mongo_add',function(req,res,next){
+    req.setEncoding("utf8");;
+    muntil.add(req.param('name'),req.param('age'),req.param('address'),function(err,info){
+        if(err){
+            return next(err)
+        }
+        res.end(JSON.stringify('添加成功'));
+    });
+});
+router.get('/mongo_update',function(req,res,next){
+    req.setEncoding("utf8");
+    muntil.editData(req.param('_id'),req.param('name'),req.param('age'),req.param('address'),function(err,info){
+        if(err){
+            return next(err)
+        }
+        res.end(JSON.stringify('修改成功'));
+    });
+});
+router.get('/mongo_delete',function(req,res,next){
+    console.log(req.param('name'));
+    muntil.delete(req.param('name'),function(err,info){
+        if(err){
+            return next(err)
+        }
+        res.end(JSON.stringify('删除成功'));
+    });
+});
 module.exports = router;

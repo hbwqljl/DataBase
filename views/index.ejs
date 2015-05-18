@@ -1,59 +1,106 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>测试用例又来了(┬＿┬)</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
-    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css'/>
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.css'/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/themes/icon.css">
     <script type="text/javascript" src='javascripts/jquery.min.js' charset="utf-8"></script>
     <script type="text/javascript" src='javascripts/easyui.min.js' charset="utf-8"></script>
     <script type="text/javascript" src='javascripts/bootstrap.min.js' charset="utf-8"></script>
     <script type="text/javascript" src='javascripts/index.js' charset="utf-8"></script>
-  </head>
-  <body>
-    <div class="container-fluid">
-    <form class="form-inline" >
-    <div class="form-group">
-        <label for="name">姓名</label>
-        <input type="text" class="form-control" id="name" title="姓名" placeholder="请输入姓名"/>
-    </div>
-    <div class="form-group">
-        <label for="age">年龄</label>
-        <input type="number" class="form-control" id="age" placeholder="请输入年龄"/>
-    </div>
-    <div class="form-group">
-        <label for="address">地址</label>
-        <input type="text" class="form-control" id="address" placeholder="请输入地址"/>
-    </div>
+</head>
+<body>
+<div class="container-fluid">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="name">姓名</label>
+            <input type="text" class="form-control" id="name" title="姓名" placeholder="请输入姓名"/>
+        </div>
+        <div class="form-group">
+            <label for="age">年龄</label>
+            <input type="number" class="form-control" id="age" placeholder="请输入年龄"/>
+        </div>
+        <div class="form-group">
+            <label for="address">地址</label>
+            <input type="text" class="form-control" id="address" placeholder="请输入地址"/>
+        </div>
         <button type="button" id="set" class="btn btn-primary">提交数据</button>
     </form>
-    </div>
-    <br>
-    <div class="container-fluid">
+</div>
+<br>
+
+<div class="container-fluid">
     <table class="table table-striped">
-        <% for(var i=0; i<rows.length; i++) {%>
-            <th><%= rows[i].name %></th>
-            <th><%= rows[i].age %></th>
-            <th><%= rows[i].address %></th>
-            <th>姓名： <input type="text" id="rname_<%= rows[i].id %>"/></th>
-            <th>年龄： <input type="number" id="rage_<%= rows[i].id %>"/></th>
-            <th>地址: <input type="text" id="raddress_<%= rows[i].id %>"/></th>
-            <th><a onclick="update(<%= rows[i].id %>)" href="javaScript:void(0)" id="<%= rows[i].id %>" name="update">修改</a></th>
-            <th><a onclick="deletes(<%= rows[i].id %>)" href="javaScript:void(0)" id="<%= rows[i].id %>" name="delete">删除</a></th>
-            </tr>
+        <% for(var i = 0; i < rows.length; i++) { %>
+        <th><%= rows[i].name %></th>
+        <th><%= rows[i].age %></th>
+        <th><%= rows[i].address %></th>
+        <th>姓名： <input type="text" id="rname_<%= rows[i].id %>"/></th>
+        <th>年龄： <input type="number" id="rage_<%= rows[i].id %>"/></th>
+        <th>地址: <input type="text" id="raddress_<%= rows[i].id %>"/></th>
+        <th><a onclick="update(<%= rows[i].id %>)" href="javaScript:void(0)" id="<%= rows[i].id %>" name="update">修改</a>
+        </th>
+        <th><a onclick="deletes(<%= rows[i].id %>)" href="javaScript:void(0)" id="<%= rows[i].id %>"
+               name="delete">删除</a></th>
+        </tr>
         <% } %>
     </table>
+</div>
+<button type="button" class="btn btn-default" onclick="mlist()">Mangodb测试</button>
+
+<button type="button" class="btn btn-primary">Mangodb测试</button>
+
+<button type="button" class="btn btn-success">Mangodb测试</button>
+
+<button type="button" class="btn btn-info">Mangodb测试</button>
+
+<button type="button" class="btn btn-warning">Mangodb测试</button>
+
+<button type="button" class="btn btn-danger">Mangodb测试</button>
+
+<div style="margin:20px 0;"></div>
+<table id="mangodata" class="easyui-datagrid" title="MongoDB 数据" style="width:100%;height:400px"
+       data-options="rownumbers:true,singleSelect:true,pagination:true,singleSelect:true,collapsible:true,url:'mongo_list',method:'get',toolbar:toolbar">
+    <thead>
+    <tr>
+        <th data-options="field:'_id'">ID</th>
+        <th data-options="field:'name'">name</th>
+        <th data-options="field:'age'">age</th>
+        <th data-options="field:'address'">address</th>
+    </tr>
+    </thead>
+</table>
+<div id="data" class="easyui-window" title="提示框" data-options="modal:true,closed:true,iconCls:'icon-save'"
+     style="width:500px;height:200px;padding:10px;">
+    <div style="padding:10px 80px 20px 100px">
+        <form id="mongo_form" method="get" action="mongo_add">
+            <table cellpadding="5">
+
+                <tr>
+                    <td>Name:</td>
+                    <td><input class="easyui-textbox" type="text" name="name" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>Age:</td>
+                    <td><input class="easyui-textbox" type="text" name="age" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td><input class="easyui-textbox" type="text" name="address" data-options="required:true"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="_id"  style="display:none;"></td>
+                </tr>
+            </table>
+        </form>
     </div>
-    <button type="button" class="btn btn-default" onclick="mlist()">Mangodb测试</button>
-
-    <button type="button" class="btn btn-primary">Mangodb测试</button>
-
-    <button type="button" class="btn btn-success">Mangodb测试</button>
-
-    <button type="button" class="btn btn-info">Mangodb测试</button>
-
-    <button type="button" class="btn btn-warning">Mangodb测试</button>
-
-    <button type="button" class="btn btn-danger">Mangodb测试</button>
-  </body>
+    <div style="text-align:center;padding:5px">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
+    </div>
+</div>
+</body>
 </html>
